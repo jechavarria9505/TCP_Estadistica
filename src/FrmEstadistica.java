@@ -1,0 +1,105 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
+public class FrmEstadistica  extends JFrame{
+    //Metodo constructor
+    public FrmEstadistica(){
+        setSize(500,300);
+        setTitle("Estadistica");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        //JLabel sirve para añadir etiqueta
+        JLabel lblDato=new JLabel("Dato: ");
+        lblDato.setBounds(10, 10 ,100 ,25);        
+        getContentPane().add(lblDato);        //Para añadirlo a la ventana usar y se debe usar debajo de la declaracion
+
+        //Creando Caja de texto
+        JTextField txtDato=new JTextField();
+        txtDato.setBounds(110,10,100,25);
+        getContentPane().add(txtDato);
+        
+        //Creadndo Botones
+        JButton btnAgregar=new JButton("Agregar");
+        btnAgregar.setBounds(110,40,100,25);
+        getContentPane().add(btnAgregar);
+
+        JButton btnQuitar=new JButton("Quitar");
+        btnQuitar.setBounds(110,70,100,25);
+        getContentPane().add(btnQuitar);
+
+        //Creando Cuadro de lista
+        JLabel lblMuestra=new JLabel("Muestra: ");
+        lblMuestra.setBounds(220, 10 ,100 ,25);    
+        lblMuestra.setHorizontalAlignment(SwingConstants.CENTER);    //Para Centrar
+        getContentPane().add(lblMuestra);  
+
+        JList lstMuestra=new JList();
+        JScrollPane spMuestra=new JScrollPane(lstMuestra);
+        spMuestra.setBounds(220,40,100,150);
+        getContentPane().add(spMuestra);
+
+        JButton btnEstadistica=new JButton("Estadistica");
+        btnEstadistica.setBounds(10,200,100,25);
+        getContentPane().add(btnEstadistica);
+
+        //Creando lista desplegable
+        JComboBox cmbEstadistica=new JComboBox();
+        String[] opciones=new String[]{"Sumatoria", "Promedio", "Desviacion Estandar", "Maximo", "Minimo", "Moda"}; //Opciones para lista desplegable
+        DefaultComboBoxModel mdlEstadistica=new DefaultComboBoxModel(opciones); //Genera la lista desplegable
+        cmbEstadistica.setModel(mdlEstadistica);// Esta declaracion para asignar el modelo del ComboBox
+        cmbEstadistica.setBounds(110,200,100,25);
+        getContentPane().add(cmbEstadistica);
+
+        //Caja de texto para mostrar el resultado
+
+        JTextField txtEstadistica=new JTextField();
+        txtEstadistica.setBounds(220,200,100,25);
+        txtEstadistica.setEnabled(false); //No permite que en la caja de texto se pueda escribir
+        getContentPane().add(txtEstadistica);
+
+        //Generando eventos en el programa (Acciones al dar click en los botones)
+        btnAgregar.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               JOptionPane.showMessageDialog(null, "Hizo Click en Agregar"); //Para mostrar mensajes superpuestos
+
+            } 
+
+        });
+
+        btnQuitar.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               JOptionPane.showMessageDialog(null, "Hizo Click en Quitar"); //Para mostrar mensajes superpuestos
+               
+            } 
+
+        });
+
+        btnEstadistica.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               JOptionPane.showMessageDialog(null, "Hizo Click en Estadistica"); //Para mostrar mensajes superpuestos
+               
+            } 
+
+        });
+    }
+
+}
