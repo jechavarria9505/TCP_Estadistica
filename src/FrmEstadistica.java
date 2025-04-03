@@ -20,6 +20,8 @@ public class FrmEstadistica  extends JFrame{
     private JTextField txtDato;
     private JLabel lblMuestra;
     private JList lstMuestra;
+    private JComboBox cmbEstadistica;
+    private JTextField txtEstadistica;
     //Metodo constructor
     public FrmEstadistica(){
         setSize(500,300);
@@ -62,7 +64,7 @@ public class FrmEstadistica  extends JFrame{
         getContentPane().add(btnEstadistica);
 
         //Creando lista desplegable
-        JComboBox cmbEstadistica=new JComboBox();
+        cmbEstadistica=new JComboBox();
         String[] opciones=new String[]{"Sumatoria", "Promedio", "Desviacion Estandar", "Maximo", "Minimo", "Moda"}; //Opciones para lista desplegable
         DefaultComboBoxModel mdlEstadistica=new DefaultComboBoxModel(opciones); //Genera la lista desplegable
         cmbEstadistica.setModel(mdlEstadistica);// Esta declaracion para asignar el modelo del ComboBox
@@ -71,7 +73,7 @@ public class FrmEstadistica  extends JFrame{
 
         //Caja de texto para mostrar el resultado
 
-        JTextField txtEstadistica=new JTextField();
+        txtEstadistica=new JTextField();
         txtEstadistica.setBounds(220,200,100,25);
         txtEstadistica.setEnabled(false); //No permite que en la caja de texto se pueda escribir
         getContentPane().add(txtEstadistica);
@@ -99,8 +101,7 @@ public class FrmEstadistica  extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-               JOptionPane.showMessageDialog(null, "Hizo Click en Estadistica"); //Para mostrar mensajes superpuestos
-               
+               calcularEstadistica();
             } 
 
         });
@@ -116,6 +117,9 @@ public class FrmEstadistica  extends JFrame{
                 totalDatos++;
                 mostrar();
             }
+            else{
+                JOptionPane.showMessageDialog(null, "No se deben agregar mas datos");
+            }
     }
 
     private void mostrar() {
@@ -129,7 +133,39 @@ public class FrmEstadistica  extends JFrame{
     }
 
     private void quitarDato() {
+        int posicion=lstMuestra.getSelectedIndex();
+        if(posicion>=0) {
+            for(int i=posicion; i < totalDatos - 1; i++){
+                muestra[i]= muestra[i+1];
+            }
+            totalDatos--;
+            mostrar();
 
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar la posicion a eliminar");
+        }
+
+    }
+
+    private double sumatoria(){
+        double suma=0;
+        for(int i = 0; i < totalDatos; i++) {
+            suma += muestra[i];
+        }
+        
+        return suma;
+    }
+
+    private void calcularEstadistica(){
+        switch (cmbEstadistica.getSelectedIndex()) {
+            case 0:
+                txtEstadistica.setText(String.valueOf(sumatoria()));
+                break;
+        
+            default:
+                break;
+        }
     }
 
 }
